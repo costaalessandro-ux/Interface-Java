@@ -1,6 +1,8 @@
 
 package model;
 
+import java.util.Date;
+
 public class task {
     private int id;
     private int idProject;
@@ -9,8 +11,8 @@ public class task {
     private Boolean completed;
     private String notes;
     private String deadline;
-    private String createdAt;
-    private String updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
     
     public task(){};
 
@@ -70,21 +72,25 @@ public class task {
         this.deadline = deadline;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public String getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(String updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "task{" + "id=" + id + ", idProject=" + idProject + ", name=" + name + ", description=" + description + ", completed=" + completed + ", notes=" + notes + ", deadline=" + deadline + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
+    }
+
 }
