@@ -3,7 +3,7 @@ package model;
 
 import java.util.Date;
 
-public class task {
+public class Task {
     private int id;
     private int idProject;
     private String name;
@@ -14,7 +14,7 @@ public class task {
     private Date createdAt;
     private Date updatedAt;
     
-    public task(){};
+    public Task(){};
 
     public int getId() {
         return id;
