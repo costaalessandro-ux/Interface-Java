@@ -15,7 +15,7 @@ public class TaskController {
     }
     
     public void removeById(Task task){
-        
+        String sql = "DELETE FROM task where id = ?";
     }
     
     public List<Task> getAll(int idProject){
