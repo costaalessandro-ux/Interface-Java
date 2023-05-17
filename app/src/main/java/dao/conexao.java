@@ -4,15 +4,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class conexao {
-    public static final String DRIVE = "com.mysql.jdbc.Driver";
+    private Connection conexao;
+    public static final String DRIVER = "com.mysql.jdbc.Driver";
     public static final String URL = "jdbc:mysql://localhost:3306/todolist";
     public static final String USER = "root";
     public static final String PASS = "";
     
-    public static Connection getConnection(){
+    public Connection getConnection(){
         try{
-            Class.forName(DRIVE);
-            return DriverManager.getConnection(URL, USER, PASS);
+            Class.forName(DRIVER);
+            conexao = DriverManager.getConnection(URL, USER, PASS);
+            return conexao;
         }catch (Exception ex){
             throw new RuntimeException("Erro na conexao com o banco de dados");
         }
