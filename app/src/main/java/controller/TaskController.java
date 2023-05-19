@@ -3,6 +3,7 @@ package controller;
 
 import dao.conexao;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,8 +21,20 @@ public class TaskController {
 		conexao = new conexao().getConnection();
     }
         
-    public void save(Task task){
-        
+    public void save(Task task) throws SQLException{
+        sql = "insert into task (idProject,name,description,completed,notes,deadline,createdAt,updatedAt) values(?,?,?,?)";
+        preparar = conexao.prepareStatement(sql);
+        preparar.setInt(1,task.getIdProject());
+        preparar.setString(2,task.getName());
+        preparar.setString(3,task.getDescription());
+        preparar.setBoolean(4,task.getCompleted());
+        preparar.setString(5,task.getNotes());
+        preparar.setString(6,task.getDeadline());
+        preparar.setDate(7, (Date) task.getCreatedAt());
+        preparar.setDate(8, (Date) task.getUpdatedAt());
+        preparar.execute();
+        preparar.close();
+        // pendente
     }
     
     public void update(Task task){
