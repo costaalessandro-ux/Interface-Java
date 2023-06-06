@@ -9,6 +9,8 @@ public class App {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Task task = new Task();
         TaskController TaskController = new TaskController(); 
-        TaskController.removeById(1);
+        TaskController.getAll(1);
+        //TaskController.removeById(1);
   }
 }
+     

@@ -15,7 +15,19 @@ public class Task {
     private Date updatedAt;
     
     public Task(){};
-
+    
+    
+    public Task(int idProject,String name, String description, Boolean completed,String notes, String deadline){
+        this.idProject = 1;
+        this.name = "alessandro";
+        this.description = "bbbb";
+        this.completed = true;
+        this.notes = "ccccc";
+        this.deadline = "dddddd";
+    
+    }
+    
+    
     public int getId() {
         return id;
     }
