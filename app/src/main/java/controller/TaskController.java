@@ -77,7 +77,8 @@ public class TaskController {
         preparar = conexao.prepareStatement(sql);
         //preparar.setInt(1, idProject);
         rs = preparar.executeQuery();
-        while (rs.next()) {
+        try{
+            while (rs.next()) {
             Task task = new Task();
             task.setId(rs.getInt("id"));
             task.setIdProject(rs.getInt("idProject"));
@@ -89,6 +90,8 @@ public class TaskController {
             task.setCreatedAt(rs.getDate("createdAt"));
             task.setUpdatedAt(rs.getDate("updatedAt"));
             tasks.add(task);
+        }} catch (SQLException e) {
+            throw new SQLException("Error ao Listar");
         }
         return null;
     }

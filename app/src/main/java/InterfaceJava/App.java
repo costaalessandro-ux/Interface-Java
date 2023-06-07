@@ -1,16 +1,17 @@
 package InterfaceJava;
 
-import controller.TaskController;
+import controller.ProjectController;
 import java.sql.SQLException;
-import model.Task;
+import java.util.List;
+import model.Project;
 
 public class App {
    
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        Task task = new Task();
-        TaskController TaskController = new TaskController(); 
-        TaskController.getAll(1);
-        //TaskController.removeById(1);
+        Project project = new Project();
+        ProjectController projectController = new ProjectController();
+        List<Project> projects = projectController.getAll();
+        System.out.println("Total: " + projects.size());
   }
 }
      

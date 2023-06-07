@@ -28,8 +28,8 @@ public class ProjectController {
             preparar.setInt(1, project.getId());
             preparar.setString(2, project.getName());
             preparar.setString(3, project.getDescription());
-            preparar.setDate(4, (Date) project.getCreatedAt());
-            preparar.setDate(5, (Date) project.getUpdatedAt());
+            preparar.setDate(4, new Date  (project.getCreatedAt().getTime()));
+            preparar.setDate(5, new Date (project.getUpdatedAt().getTime()));
             preparar.execute();
             preparar.close();
         } catch (SQLException e) {
@@ -44,8 +44,8 @@ public class ProjectController {
         try {
             preparar.setString(1, project.getName());
             preparar.setString(2, project.getDescription());
-            preparar.setDate(3, (Date) project.getCreatedAt());
-            preparar.setDate(4, (Date) project.getUpdatedAt());
+            preparar.setDate(3, new Date  (project.getCreatedAt().getTime()));
+            preparar.setDate(4, new Date (project.getUpdatedAt().getTime()));
             preparar.execute();
             preparar.close();
         } catch (SQLException e) {
@@ -66,11 +66,12 @@ public class ProjectController {
         }
     }
 
-    public List<Project> getAll(int id) throws SQLException {
-        List<Project> projects = new ArrayList<Project>();
-        sql = "select * from project order by id";
+    public List<Project> getAll() throws SQLException {
+        sql = "select * from project";
+        List<Project> projects = new ArrayList<>();
         preparar = conexao.prepareStatement(sql);
-        rs = preparar.executeQuery();
+        try {
+             rs = preparar.executeQuery();
         while (rs.next()) {
             Project project = new Project();
             project.setId(rs.getInt("id"));
@@ -78,6 +79,10 @@ public class ProjectController {
             project.setDescription(rs.getString("description"));
             project.setCreatedAt(rs.getDate("createdAt"));
             project.setUpdatedAt(rs.getDate("updatedAt"));
+            projects.add(project);
+        }
+        } catch (SQLException e) {
+            throw new SQLException("Error ao Listar");
         }
         return null;
     }
