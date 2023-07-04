@@ -28,8 +28,8 @@ public class ProjectController {
             preparar.setInt(1, project.getId());
             preparar.setString(2, project.getName());
             preparar.setString(3, project.getDescription());
-            preparar.setDate(4, new Date  (project.getCreatedAt().getTime()));
-            preparar.setDate(5, new Date (project.getUpdatedAt().getTime()));
+            //preparar.setDate(4, new Date  (project.getCreatedAt().getTime()));
+            //preparar.setDate(5, new Date (project.getUpdatedAt().getTime()));
             preparar.execute();
             preparar.close();
         } catch (SQLException e) {

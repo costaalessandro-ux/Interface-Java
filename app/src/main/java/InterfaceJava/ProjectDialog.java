@@ -4,18 +4,28 @@
  */
 package InterfaceJava;
 
-/**
- *
- * @author costa
- */
+import controller.ProjectController;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Project;
+
 public class ProjectDialog extends javax.swing.JDialog {
 
-    /**
-     * Creates new form ProjectDialog
-     */
+    ProjectController controller;
+    
     public ProjectDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
+        try {
+            controller = new ProjectController();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ProjectDialog.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProjectDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   
     }
 
     /**
@@ -46,6 +56,11 @@ public class ProjectDialog extends javax.swing.JDialog {
         jLabel1.setText("Projetos");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/check.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,6 +155,17 @@ public class ProjectDialog extends javax.swing.JDialog {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+                Project project = new Project();
+                project.setName(jTextField1.getText());
+                project.setDescription(jTextArea1.getText());
+        try {
+            controller.save(project);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProjectDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
