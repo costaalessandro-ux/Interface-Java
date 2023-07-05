@@ -2,10 +2,10 @@ package controller;
 
 import dao.conexao;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import model.Project;
@@ -28,8 +28,8 @@ public class ProjectController {
             preparar.setInt(1, project.getId());
             preparar.setString(2, project.getName());
             preparar.setString(3, project.getDescription());
-            //preparar.setDate(4, new Date  (project.getCreatedAt().getTime()));
-            //preparar.setDate(5, new Date (project.getUpdatedAt().getTime()));
+            preparar.setDate(4, new java.sql.Date (project.getCreatedAt().getTime()));
+            preparar.setDate(5, new java.sql.Date (project.getUpdatedAt().getTime()));
             preparar.execute();
             preparar.close();
         } catch (SQLException e) {

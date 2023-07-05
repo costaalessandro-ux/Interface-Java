@@ -8,6 +8,7 @@ import controller.ProjectController;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Project;
 
 public class ProjectDialog extends javax.swing.JDialog {
@@ -157,14 +158,18 @@ public class ProjectDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-                Project project = new Project();
+
+        try {
+              Project project = new Project();
                 project.setName(jTextField1.getText());
                 project.setDescription(jTextArea1.getText());
-        try {
-            controller.save(project);
+                controller.save(project);
+            JOptionPane.showMessageDialog(rootPane, "Projeto salvo com sucesso"); 
         } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
             Logger.getLogger(ProjectDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.dispose(); 
     }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
@@ -178,7 +183,7 @@ public class ProjectDialog extends javax.swing.JDialog {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Java swing".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
