@@ -6,6 +6,9 @@ package InterfaceJava;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -282,8 +285,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelProjectsSubTitleMouseClicked
 
     private void jLabelTasksSubTitleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTasksSubTitleMouseClicked
-        TaskDialog taskDialog = new TaskDialog(this, rootPaneCheckingEnabled);
-        taskDialog.setVisible(true);
+        try {
+            TaskDialog taskDialog = new TaskDialog(this, rootPaneCheckingEnabled);
+            taskDialog.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jLabelTasksSubTitleMouseClicked
 
     public static void main(String args[]) {

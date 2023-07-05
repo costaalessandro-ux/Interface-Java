@@ -10,24 +10,27 @@ public class Task {
     private String description;
     private Boolean completed;
     private String notes;
-    private String deadline;
+    private Date deadline;
     private Date createdAt;
     private Date updatedAt;
-    
-    public Task(){};
-    
-    
-    public Task(int idProject,String name, String description, Boolean completed,String notes, String deadline){
-        this.idProject = 1;
-        this.name = "alessandro";
-        this.description = "bbbb";
-        this.completed = true;
-        this.notes = "ccccc";
-        this.deadline = "dddddd";
-    
+ 
+    public Task(int id, int idProject, String name, String description, Boolean completed, String notes, Date deadline, Date createdAt, Date updatedAt) {
+        this.id = id;
+        this.idProject = idProject;
+        this.name = name;
+        this.description = description;
+        this.completed = completed;
+        this.notes = notes;
+        this.deadline = deadline;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
     
-    
+    public Task(){
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    };
+
     public int getId() {
         return id;
     }
@@ -76,11 +79,11 @@ public class Task {
         this.notes = notes;
     }
 
-    public String getDeadline() {
+    public Date getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(String deadline) {
+    public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 

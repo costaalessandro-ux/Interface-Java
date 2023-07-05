@@ -9,8 +9,19 @@ public class Project {
     private Date createdAt;
     private Date updatedAt;
     
-    public Project(){};
-
+    public Project(int id, String name, String description, Date createdAt, Date updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+    
+     public Project(){
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    };
+ 
     public int getId() {
         return id;
     }
