@@ -287,6 +287,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jLabelTasksSubTitleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTasksSubTitleMouseClicked
         try {
             TaskDialog taskDialog = new TaskDialog(this, rootPaneCheckingEnabled);
+            taskDialog.setProject(null); 
             taskDialog.setVisible(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);

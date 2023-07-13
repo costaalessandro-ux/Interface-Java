@@ -6,20 +6,26 @@ package InterfaceJava;
 
 import controller.TaskController;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Project;
 import model.Task;
 
 public class TaskDialog extends javax.swing.JDialog {
 
     TaskController controller;
-
+    Project project;
+    
     public TaskDialog(java.awt.Frame parent, boolean modal) throws ClassNotFoundException, SQLException {
         super(parent, modal);
         initComponents();
 
         controller = new TaskController();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -92,8 +98,7 @@ public class TaskDialog extends javax.swing.JDialog {
         jLabel3.setText("Nome");
 
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setText("jTextField1");
+        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,13 +197,23 @@ public class TaskDialog extends javax.swing.JDialog {
 
         try {
             Task task = new Task();
+            task.setIdProject(5);
+            //task.setIdProject(project.getId());
             task.setName(jTextField1.getText());
             task.setDescription(jTextArea2.getText());
             task.setCompleted(false);
             task.setNotes(jTextArea3.getText());
+            /*No codigo abaixo foi necessário transformar a variavel deadline,
+            para isso foi utilizado o SimpleDateFormat, segueo codigo: */
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+            Date deadline = null;
+            deadline = dateFormat.parse(jFormattedTextField1.getText());
+            task.setDeadline(deadline);
             controller.save(task);
-            JOptionPane.showMessageDialog(rootPane, "Projeto salvo com sucesso");
+            JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso");
         } catch (SQLException ex) {
+            Logger.getLogger(TaskDialog.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
             Logger.getLogger(TaskDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
@@ -274,4 +289,8 @@ public class TaskDialog extends javax.swing.JDialog {
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    public void setProject(Project project){
+        this.project = project;
+    }
 }

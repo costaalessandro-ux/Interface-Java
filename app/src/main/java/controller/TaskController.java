@@ -30,9 +30,9 @@ public class TaskController {
             preparar.setString(3, task.getDescription());
             preparar.setBoolean(4, task.getCompleted());
             preparar.setString(5, task.getNotes());
-            preparar.setDate(6, (Date) task.getDeadline());
-            preparar.setDate(7, (Date) task.getCreatedAt());
-            preparar.setDate(8, (Date) task.getUpdatedAt());
+            preparar.setDate(6, new java.sql.Date (task.getDeadline().getTime()));
+            preparar.setDate(7, new java.sql.Date (task.getCreatedAt().getTime()));
+            preparar.setDate(8, new java.sql.Date (task.getUpdatedAt().getTime()));
             preparar.execute();
             preparar.close();
         } catch (SQLException e) {
