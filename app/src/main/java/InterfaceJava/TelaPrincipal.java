@@ -15,7 +15,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     ProjectController projectController;
     TaskController taskController;
-    DefaultListModel<Project> projectModel;
+    DefaultListModel projectModel;
     
     public TelaPrincipal() throws ClassNotFoundException, SQLException {
         initComponents();
@@ -366,7 +366,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
     
      public void initComponetsModel() throws ClassNotFoundException, SQLException{
-        projectModel = new DefaultListModel<Project>();
+        projectModel = new DefaultListModel();
+        loadProjects();
     }
     
     public void loadProjects() throws SQLException{
@@ -376,6 +377,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
              Project project = projects.get(i);
              projectModel.addElement(project);
          }
+         jListProjects.setModel(projectModel);
     }
     
     
