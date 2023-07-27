@@ -67,7 +67,7 @@ public class ProjectController {
     }
 
     public List<Project> getAll() throws SQLException {
-        sql = "select * from project";
+        sql = "SELECT * FROM project";
         List<Project> projects = new ArrayList<>();
         preparar = conexao.prepareStatement(sql);
         try {
@@ -84,6 +84,6 @@ public class ProjectController {
         } catch (SQLException e) {
             throw new SQLException("Error ao Listar");
         }
-        return null;
+        return projects;
     }
 }

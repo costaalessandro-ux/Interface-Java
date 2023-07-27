@@ -373,7 +373,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void loadProjects() throws SQLException{
          List<Project> projects = projectController.getAll();
          projectModel.clear();
-         for(int i = 0; i < projects.size() -1; i++){
+         for(int i = 0; i < projects.size(); i++){
              Project project = projects.get(i);
              projectModel.addElement(project);
          }
