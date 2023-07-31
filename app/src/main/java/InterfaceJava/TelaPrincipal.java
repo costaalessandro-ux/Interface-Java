@@ -4,6 +4,8 @@ import controller.ProjectController;
 import controller.TaskController;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -277,6 +279,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jLabelProjectsSubTitleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelProjectsSubTitleMouseClicked
         ProjectDialog projectDialog = new ProjectDialog(this, rootPaneCheckingEnabled);
         projectDialog.setVisible(true);
+        projectDialog.addWindowListener(new WindowAdapter(){
+          public void windowClosed(WindowEvent e){
+              try {
+                  loadProjects();
+              } catch (SQLException ex) {
+                  Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+              }
+          }  
+        });
     }//GEN-LAST:event_jLabelProjectsSubTitleMouseClicked
 
     private void jLabelTasksSubTitleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTasksSubTitleMouseClicked
