@@ -12,12 +12,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import model.Project;
+import util.TaskTableModel;
 
 public class TelaPrincipal extends javax.swing.JFrame {
     
     ProjectController projectController;
     TaskController taskController;
     DefaultListModel projectModel;
+    TaskTableModel taskModel;
     
     public TelaPrincipal() throws ClassNotFoundException, SQLException {
         initComponents();
@@ -379,6 +381,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
      public void initComponetsModel() throws ClassNotFoundException, SQLException{
         projectModel = new DefaultListModel();
         loadProjects();
+        taskModel = new TaskTableModel();
+        jTableTasks.setModel(taskModel);
     }
     
     public void loadProjects() throws SQLException{

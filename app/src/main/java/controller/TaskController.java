@@ -93,6 +93,6 @@ public class TaskController {
         }} catch (SQLException e) {
             throw new SQLException("Error ao Listar");
         }
-        return null;
+        return tasks;
     }
 }
