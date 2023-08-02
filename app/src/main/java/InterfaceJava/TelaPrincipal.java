@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import model.Project;
+import model.Task;
 import util.TaskTableModel;
 
 public class TelaPrincipal extends javax.swing.JFrame {
@@ -227,6 +228,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jTableTasks.setSelectionBackground(new java.awt.Color(0, 152, 102));
+        jTableTasks.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jTableTasks);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -297,6 +299,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             TaskDialog taskDialog = new TaskDialog(this, rootPaneCheckingEnabled);
             taskDialog.setProject(null); 
             taskDialog.setVisible(true);
+            taskDialog.addWindowListener(new WindowAdapter(){
+                public void windowClosed(WindowEvent e){
+              try {
+                  loadProjects();
+              } catch (SQLException ex) {
+                  Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+              }
+          } 
+            });
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -383,8 +394,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         loadProjects();
         taskModel = new TaskTableModel();
         jTableTasks.setModel(taskModel);
+        loadTasks();
     }
     
+    public void loadTasks() throws SQLException{
+        List<Task> tasks = taskController.getAll(5);
+        taskModel.setTasks(tasks);
+    }
+     
     public void loadProjects() throws SQLException{
          List<Project> projects = projectController.getAll();
          projectModel.clear();
