@@ -6,6 +6,8 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Task;
 
+// Aqui foi utlizado a classe AbstractTableModel, ela é uma classe do Swing
+// e serve para cria/manipular tabelas.
 public class TaskTableModel extends AbstractTableModel {
 
     String[] columns = {"Nome", "Descricao", "Prazo", "Tarefa Concluída", "Editar", "Excluir"};
@@ -25,7 +27,20 @@ public class TaskTableModel extends AbstractTableModel {
     public String getColumnName(int columnIndex){
         return columns[columnIndex];
     }
-
+    
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex){
+        return columnIndex == 3; 
+    }
+    
+    @Override
+    public Class<?> getColumnClass(int columnIndex){
+        if(tasks.isEmpty()){
+            return Object.class;
+        }
+        return this.getValueAt(0, columnIndex).getClass();
+    }
+    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
@@ -45,6 +60,11 @@ public class TaskTableModel extends AbstractTableModel {
             default:
                 return "Dados não Encontrados";
         }
+    }
+    
+   @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex){
+        tasks.get(rowIndex).setCompleted((boolean) aValue);
     }
 
     public String[] getColumns() {
