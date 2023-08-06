@@ -40,25 +40,25 @@ public class TaskController {
         }
 
     }
-
+    
     public void update(Task task) throws SQLException {
-        sql = "update Task task set name=?, description=?, completed=?, notes=?, deadline=?, createdAt=?, updatedAt=? where id=?";
+        sql = "update task set name=?, description=?, completed=?, notes=?, deadline=?, createdAt=?, updatedAt=? where id=?";
         preparar = conexao.prepareStatement(sql);
         try {
             preparar.setString(1, task.getName());
             preparar.setString(2, task.getDescription());
             preparar.setBoolean(3, task.getCompleted());
             preparar.setString(4, task.getNotes());
-            preparar.setDate(5, (Date) task.getDeadline());
-            preparar.setDate(6, (Date) task.getCreatedAt());
-            preparar.setDate(7, (Date) task.getUpdatedAt());
+            preparar.setDate(5, new java.sql.Date(task.getDeadline().getTime()));
+            preparar.setDate(6, new java.sql.Date(task.getCreatedAt().getTime()));
+            preparar.setDate(7, new java.sql.Date(task.getUpdatedAt().getTime()));
             preparar.execute();
             preparar.close();
         } catch (SQLException e) {
             throw new SQLException("Error ao alterar a tarefa");
         }
     }
-
+    
     public void removeById(int taskId) throws SQLException {
         sql = "DELETE FROM task where id = ?";
         preparar = conexao.prepareStatement(sql);

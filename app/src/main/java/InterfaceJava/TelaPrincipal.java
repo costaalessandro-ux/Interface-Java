@@ -16,12 +16,12 @@ import model.Task;
 import util.TaskTableModel;
 
 public class TelaPrincipal extends javax.swing.JFrame {
-    
+
     ProjectController projectController;
     TaskController taskController;
     DefaultListModel projectModel;
     TaskTableModel taskModel;
-    
+
     public TelaPrincipal() throws ClassNotFoundException, SQLException {
         initComponents();
         decorateTableTasks();
@@ -229,6 +229,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jTableTasks.setSelectionBackground(new java.awt.Color(0, 152, 102));
         jTableTasks.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableTasks.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableTasksMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTableTasks);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -283,30 +288,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jLabelProjectsSubTitleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelProjectsSubTitleMouseClicked
         ProjectDialog projectDialog = new ProjectDialog(this, rootPaneCheckingEnabled);
         projectDialog.setVisible(true);
-        projectDialog.addWindowListener(new WindowAdapter(){
-          public void windowClosed(WindowEvent e){
-              try {
-                  loadProjects();
-              } catch (SQLException ex) {
-                  Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-              }
-          }  
+        projectDialog.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) {
+                try {
+                    loadProjects();
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         });
     }//GEN-LAST:event_jLabelProjectsSubTitleMouseClicked
 
     private void jLabelTasksSubTitleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTasksSubTitleMouseClicked
         try {
             TaskDialog taskDialog = new TaskDialog(this, rootPaneCheckingEnabled);
-            taskDialog.setProject(null); 
+            taskDialog.setProject(null);
             taskDialog.setVisible(true);
-            taskDialog.addWindowListener(new WindowAdapter(){
-                public void windowClosed(WindowEvent e){
-              try {
-                  loadProjects();
-              } catch (SQLException ex) {
-                  Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-              }
-          } 
+            taskDialog.addWindowListener(new WindowAdapter() {
+                public void windowClosed(WindowEvent e) {
+                    try {
+                        loadProjects();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             });
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -314,6 +319,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jLabelTasksSubTitleMouseClicked
+
+    private void jTableTasksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTasksMouseClicked
+        try {
+            int rowIndex = jTableTasks.rowAtPoint(evt.getPoint());
+            int columnIndex = jTableTasks.columnAtPoint(evt.getPoint());
+           
+            switch (columnIndex) {
+                case 3:
+                    Task task = taskModel.getTasks().get(rowIndex);
+                    taskController.update(task);
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jTableTasksMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -351,8 +376,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 }
             }
         });
-        
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -376,42 +400,40 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable jTableTasks;
     // End of variables declaration//GEN-END:variables
 
-    public void decorateTableTasks(){
+    public void decorateTableTasks() {
         // metodo para customizar a header da table
         jTableTasks.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
-        jTableTasks.getTableHeader().setBackground(new Color(0,153,102));
-        jTableTasks.getTableHeader().setForeground(new Color(255,255,255));
+        jTableTasks.getTableHeader().setBackground(new Color(0, 153, 102));
+        jTableTasks.getTableHeader().setForeground(new Color(255, 255, 255));
         jTableTasks.setAutoCreateRowSorter(true);
     }
-    
-    public void initDataController() throws ClassNotFoundException, SQLException{
+
+    public void initDataController() throws ClassNotFoundException, SQLException {
         projectController = new ProjectController();
         taskController = new TaskController();
     }
-    
-     public void initComponetsModel() throws ClassNotFoundException, SQLException{
+
+    public void initComponetsModel() throws ClassNotFoundException, SQLException {
         projectModel = new DefaultListModel();
         loadProjects();
         taskModel = new TaskTableModel();
         jTableTasks.setModel(taskModel);
         loadTasks();
     }
-    
-    public void loadTasks() throws SQLException{
+
+    public void loadTasks() throws SQLException {
         List<Task> tasks = taskController.getAll(5);
         taskModel.setTasks(tasks);
     }
-     
-    public void loadProjects() throws SQLException{
-         List<Project> projects = projectController.getAll();
-         projectModel.clear();
-         for(int i = 0; i < projects.size(); i++){
-             Project project = projects.get(i);
-             projectModel.addElement(project);
-         }
-         jListProjects.setModel(projectModel);
+
+    public void loadProjects() throws SQLException {
+        List<Project> projects = projectController.getAll();
+        projectModel.clear();
+        for (int i = 0; i < projects.size(); i++) {
+            Project project = projects.get(i);
+            projectModel.addElement(project);
+        }
+        jListProjects.setModel(projectModel);
     }
-    
-    
-    
+
 }
