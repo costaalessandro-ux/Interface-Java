@@ -324,8 +324,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         try {
             int rowIndex = jTableTasks.rowAtPoint(evt.getPoint());
             int columnIndex = jTableTasks.columnAtPoint(evt.getPoint());
-           
             switch (columnIndex) {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
                 case 3:
                     Task task = taskModel.getTasks().get(rowIndex);
                     taskController.update(task);
@@ -334,6 +339,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     break;
                 case 5:
                     break;
+                default:
             }
         } catch (SQLException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);

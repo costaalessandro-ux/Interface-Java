@@ -40,25 +40,26 @@ public class TaskController {
         }
 
     }
-    
+
     public void update(Task task) throws SQLException {
         sql = "update task set name=?, description=?, completed=?, notes=?, deadline=?, createdAt=?, updatedAt=? where id=?";
         preparar = conexao.prepareStatement(sql);
         try {
-            preparar.setString(1, task.getName());
-            preparar.setString(2, task.getDescription());
-            preparar.setBoolean(3, task.getCompleted());
-            preparar.setString(4, task.getNotes());
-            preparar.setDate(5, new java.sql.Date(task.getDeadline().getTime()));
-            preparar.setDate(6, new java.sql.Date(task.getCreatedAt().getTime()));
-            preparar.setDate(7, new java.sql.Date(task.getUpdatedAt().getTime()));
+            preparar.setInt(1, task.getId());
+            preparar.setString(2, task.getName());
+            preparar.setString(3, task.getDescription());
+            preparar.setBoolean(4, task.getCompleted());
+            preparar.setString(5, task.getNotes());
+            preparar.setDate(6, new java.sql.Date(task.getDeadline().getTime()));
+            preparar.setDate(7, new java.sql.Date(task.getCreatedAt().getTime()));
+            preparar.setDate(8, new java.sql.Date(task.getUpdatedAt().getTime()));
             preparar.execute();
             preparar.close();
         } catch (SQLException e) {
             throw new SQLException("Error ao alterar a tarefa");
         }
     }
-    
+      
     public void removeById(int taskId) throws SQLException {
         sql = "DELETE FROM task where id = ?";
         preparar = conexao.prepareStatement(sql);
@@ -83,6 +84,7 @@ public class TaskController {
             task.setId(rs.getInt("id"));
             task.setIdProject(rs.getInt("idProject"));
             task.setName(rs.getString("name"));
+            task.setCompleted(rs.getBoolean("completed"));
             task.setDescription(rs.getString("description"));
             task.setCompleted(rs.getBoolean("completed"));
             task.setNotes(rs.getString("notes"));
