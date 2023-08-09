@@ -324,16 +324,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         try {
             int rowIndex = jTableTasks.rowAtPoint(evt.getPoint());
             int columnIndex = jTableTasks.columnAtPoint(evt.getPoint());
+            Task task = taskModel.getTasks().get(rowIndex);
+
             switch (columnIndex) {
-                case 0:
-                    break;
                 case 1:
                     break;
                 case 2:
                     break;
                 case 3:
-                    Task task = taskModel.getTasks().get(rowIndex);
-                    taskController.update(task);
+                    taskController.updateCheck(task);
                     break;
                 case 4:
                     break;
