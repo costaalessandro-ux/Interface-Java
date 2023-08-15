@@ -42,14 +42,15 @@ public class TaskController {
     }
     
      public void updateCheck(Task task) throws SQLException {
-        sql = "update task set name=?, description=?, completed=?, deadline=? where id=?";
+        sql = "update task set idProject=?, name=?, description=?, completed=? where id=?";
         preparar = conexao.prepareStatement(sql);
         try {
-            preparar.setInt(1, task.getId());
+            preparar.setInt(1, task.getIdProject());
             preparar.setString(2, task.getName());
             preparar.setString(3, task.getDescription());
-            preparar.setDate(4, new java.sql.Date(task.getDeadline().getTime()));
-            preparar.setBoolean(5, task.getCompleted());
+            //preparar.setDate(4, new java.sql.Date(task.getDeadline().getTime()));
+            preparar.setBoolean(4, task.getCompleted());
+            preparar.setInt(5, task.getId());
             preparar.execute();
             preparar.close();
         } catch (SQLException e) {
@@ -61,15 +62,15 @@ public class TaskController {
         sql = "update task set idProject=?, name=?, description=?, completed=?, notes=?, deadline=?, createdAt=?, updatedAt=? where id=?";
         preparar = conexao.prepareStatement(sql);
         try {
-            preparar.setInt(1, task.getId());
-            preparar.setInt(2, task.getIdProject());
-            preparar.setString(3, task.getName());
-            preparar.setString(4, task.getDescription());
-            preparar.setBoolean(5, task.getCompleted());
-            preparar.setString(6, task.getNotes());
-            preparar.setDate(7, new java.sql.Date(task.getDeadline().getTime()));
-            preparar.setDate(8, new java.sql.Date(task.getCreatedAt().getTime()));
-            preparar.setDate(9, new java.sql.Date(task.getUpdatedAt().getTime()));
+            preparar.setInt(1, task.getIdProject());
+            preparar.setString(2, task.getName());
+            preparar.setString(3, task.getDescription());
+            preparar.setBoolean(4, task.getCompleted());
+            preparar.setString(5, task.getNotes());
+            preparar.setDate(6, new java.sql.Date(task.getDeadline().getTime()));
+            preparar.setDate(7, new java.sql.Date(task.getCreatedAt().getTime()));
+            preparar.setDate(8, new java.sql.Date(task.getUpdatedAt().getTime()));
+            preparar.setInt(9, task.getId());
             preparar.execute();
             preparar.close();
         } catch (SQLException e) {

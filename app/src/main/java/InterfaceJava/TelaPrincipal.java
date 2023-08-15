@@ -184,6 +184,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         jListProjects.setSelectionBackground(new java.awt.Color(0, 152, 102));
+        jListProjects.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListProjectsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jListProjects);
 
         javax.swing.GroupLayout jPanelProjectListLayout = new javax.swing.GroupLayout(jPanelProjectList);
@@ -324,26 +329,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
         try {
             int rowIndex = jTableTasks.rowAtPoint(evt.getPoint());
             int columnIndex = jTableTasks.columnAtPoint(evt.getPoint());
-            Task task = taskModel.getTasks().get(rowIndex);
-
             switch (columnIndex) {
-                case 1:
-                    break;
-                case 2:
-                    break;
                 case 3:
-                    taskController.updateCheck(task);
+                    Task task = taskModel.getTasks().get(rowIndex);
+                    taskController.update(task);
                     break;
                 case 4:
                     break;
                 case 5:
                     break;
-                default:
             }
         } catch (SQLException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jTableTasksMouseClicked
+
+    private void jListProjectsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListProjectsMouseClicked
+        try {
+            int projectIndex = jListProjects.getSelectedIndex();
+            Project project = (Project) projectModel.get(projectIndex);
+            loadTasks(project.getId());
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jListProjectsMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -423,10 +432,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         loadProjects();
         taskModel = new TaskTableModel();
         jTableTasks.setModel(taskModel);
-        loadTasks();
+        loadTasks(0);
     }
 
-    public void loadTasks() throws SQLException {
+    public void loadTasks(int id) throws SQLException {
         List<Task> tasks = taskController.getAll(5);
         taskModel.setTasks(tasks);
     }
