@@ -115,4 +115,64 @@ public class TaskController {
         }
         return tasks;
     }
+    
+      /*
+      public List<Task> getByProjectId(int id) {
+        String sql = "SELECT * FROM tasks where idProject = ?";
+
+        List<Task> tasks = new ArrayList<>();
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        //Classe que vai recuperar os dados do banco de dados
+        ResultSet rset = null;
+
+        try {
+            conn = ConnectionFactory.getConnection();
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, id);
+
+            rset = stmt.executeQuery();
+
+            //Enquanto existir dados no banco de dados, fa?a
+            while (rset.next()) {
+
+                Task task = new Task();
+
+                task.setId(rset.getInt("id"));
+                task.setIdProject(rset.getInt("idProject"));
+                task.setName(rset.getString("name"));
+                task.setDescription(rset.getString("description"));
+                //task.setStatus(rset.getByte("status"));
+                task.setNotes(rset.getString("notes"));
+                task.setDeadline(rset.getDate("deadline"));
+                task.setCompleted(rset.getBoolean("completed"));
+                task.setCreatedAt(rset.getDate("createdAt"));
+                task.setCreatedAt(rset.getDate("updatedAt"));
+
+                //Adiciono o contato recuperado, a lista de contatos
+                tasks.add(task);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao buscar as tarefas", ex);
+        } finally {
+            try {
+                if (rset != null) {
+                    rset.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException("Erro ao fechar a conexão", ex);
+            }
+        }
+        return tasks;
+    }
+    */
 }

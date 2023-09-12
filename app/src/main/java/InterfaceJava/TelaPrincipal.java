@@ -231,7 +231,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 192, Short.MAX_VALUE)
+                .addGap(0, 186, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(185, 185, 185))
         );
@@ -244,7 +244,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         jTableTasks.setBackground(new java.awt.Color(255, 255, 255));
@@ -291,7 +291,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,9 +302,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(0, 72, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
-                    .addGap(3, 3, 3)
+                    .addContainerGap()
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(3, 3, 3)))
+                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -481,18 +483,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         loadProjects();
         taskModel = new TaskTableModel();
         jTableTasks.setModel(taskModel);
-        loadTasks(6);
+        loadTasks(0);
     }
 
     public void loadTasks(int idProject) throws SQLException {
-        List<Task> tasks = taskController.getAll(idProject);
+        List<Task> tasks = taskController.getByProjectId(idProject);
         taskModel.setTasks(tasks);
         showJTableTasks(!tasks.isEmpty());
     }
     
     // METODO CRIADO COM BUG
-     private void showJTableTasks(boolean hasTasks) {
-        if (hasTasks) {
+     private void showJTableTasks(boolean isEmptyTable) {
+        if (isEmptyTable) {
             if (jPanel1.isVisible()) {
                 jPanel1.setVisible(false);
                 jPanel5.remove(jPanel1);
