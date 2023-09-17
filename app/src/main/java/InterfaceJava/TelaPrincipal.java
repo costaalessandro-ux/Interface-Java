@@ -483,18 +483,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         loadProjects();
         taskModel = new TaskTableModel();
         jTableTasks.setModel(taskModel);
-        loadTasks(0);
+        loadTasks(7);
     }
 
     public void loadTasks(int idProject) throws SQLException {
-        List<Task> tasks = taskController.getByProjectId(idProject);
+        List<Task> tasks = taskController.getAll(idProject);
         taskModel.setTasks(tasks);
         showJTableTasks(!tasks.isEmpty());
     }
     
     // METODO CRIADO COM BUG
-     private void showJTableTasks(boolean isEmptyTable) {
-        if (isEmptyTable) {
+     private void showJTableTasks(boolean hasTasks) {
+        if (hasTasks) {
             if (jPanel1.isVisible()) {
                 jPanel1.setVisible(false);
                 jPanel5.remove(jPanel1);
@@ -512,7 +512,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jPanel1.setSize(jPanel5.getWidth(), jPanel5.getHeight());
         }
     }
-    
+     
     public void loadProjects() throws SQLException {
         List<Project> projects = projectController.getAll();
         projectModel.clear();
