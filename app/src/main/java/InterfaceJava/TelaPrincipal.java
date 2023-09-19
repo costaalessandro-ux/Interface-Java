@@ -483,7 +483,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         loadProjects();
         taskModel = new TaskTableModel();
         jTableTasks.setModel(taskModel);
-        loadTasks(7);
+        if(!projectModel.isEmpty()){
+            jListProjects.setSelectedIndex(0);
+            Project project = (Project) projectModel.get(0);
+            loadTasks(project.getId());
+        }
     }
 
     public void loadTasks(int idProject) throws SQLException {
