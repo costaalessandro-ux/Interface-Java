@@ -197,8 +197,7 @@ public class TaskDialog extends javax.swing.JDialog {
 
         try {
             Task task = new Task();
-            task.setIdProject(5);
-            //task.setIdProject(project.getId());
+            task.setIdProject(project.getId());
             task.setName(jTextField1.getText());
             task.setDescription(jTextArea2.getText());
             task.setCompleted(false);
