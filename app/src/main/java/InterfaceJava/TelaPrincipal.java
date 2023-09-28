@@ -355,12 +355,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             int projectIndex = jListProjects.getSelectedIndex();
             Project project = (Project) projectModel.get(projectIndex);
             taskDialog.setProject(project);
-            
             taskDialog.setVisible(true);
             taskDialog.addWindowListener(new WindowAdapter() {
                 public void windowClosed(WindowEvent e) {
+                   int projectIndex = jListProjects.getSelectedIndex();
+                   Project project = (Project) projectModel.get(projectIndex);
                     try {
-                        loadProjects();
+                        loadTasks(project.getId());
                     } catch (SQLException ex) {
                         Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                     }
