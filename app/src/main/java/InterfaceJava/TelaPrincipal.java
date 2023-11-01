@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import model.Project;
 import model.Task;
+import util.DeadLineColumnCellRederer;
 import util.TaskTableModel;
 
 public class TelaPrincipal extends javax.swing.JFrame {
@@ -24,9 +25,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public TelaPrincipal() throws ClassNotFoundException, SQLException {
         initComponents();
-        decorateTableTasks();
         initDataController();
         initComponetsModel();
+        decorateTableTasks();
     }
 
     @SuppressWarnings("unchecked")
@@ -456,7 +457,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTableTasks.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
         jTableTasks.getTableHeader().setBackground(new Color(0, 153, 102));
         jTableTasks.getTableHeader().setForeground(new Color(255, 255, 255));
-        jTableTasks.setAutoCreateRowSorter(true);
+        jTableTasks.getColumnModel().getColumn(2).setCellRenderer(new DeadLineColumnCellRederer());
+        //jTableTasks.setAutoCreateRowSorter(true);
     }
 
     public void initDataController() throws ClassNotFoundException, SQLException {
