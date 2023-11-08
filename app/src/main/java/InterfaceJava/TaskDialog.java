@@ -226,6 +226,7 @@ public class TaskDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso");
             this.dispose();
            }else{
+               hideErrorFields();
                if(jTextField1.getText().isEmpty()){
                    jLabel7.setVisible(true);
                }if(jFormattedTextField1.getText().isEmpty()){
@@ -322,7 +323,7 @@ public class TaskDialog extends javax.swing.JDialog {
     }
     
     public boolean isFieldsValid(){
-      if((jTextField1.getText().isEmpty()) && (jFormattedTextField1.getText().isEmpty())){
+      if((!jTextField1.getText().isEmpty()) && (!jFormattedTextField1.getText().isEmpty())){
           return true;
       }else{
           return false;
